@@ -1,20 +1,20 @@
-package com.portfolioehadad.portfolio.user;
+package com.portfolioehadad.portfolio.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
 @Entity
+@Table(name = "users")
+@Getter @Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long userId;
+    private Long id;
     private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+
+    @OneToOne(mappedBy = "user")
     private Profile profile;
 
 }
