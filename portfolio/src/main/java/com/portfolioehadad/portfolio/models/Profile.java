@@ -13,7 +13,7 @@ public class Profile {
      private Long id;
      @OneToOne
      @JoinColumn(name = "user_id")
-     private User user;
+     private UserPorfolio user;
     private String name;
     private String image;
     private String profession;

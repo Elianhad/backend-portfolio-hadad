@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class User {
+public class UserPorfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
