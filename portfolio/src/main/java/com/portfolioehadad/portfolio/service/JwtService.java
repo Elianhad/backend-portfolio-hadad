@@ -11,8 +11,6 @@ import java.security.Key;
 import java.util.Date;
 @Component
 public class JwtService  {
-    private final String REQ_HEADER = "Authorization";
-    private final String REQ_HEADER_PREFIX = "Bearer ";
     private final Key SECRET= Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String createJwt( String email ){
@@ -33,5 +31,8 @@ public class JwtService  {
     }
     private Claims extractclaims (String token){
         return Jwts.parserBuilder().setSigningKey(SECRET).build().parseClaimsJws(token).getBody();
+    }
+    private String emailToken (String token){
+        return extractclaims(token).getSubject();
     }
 }
