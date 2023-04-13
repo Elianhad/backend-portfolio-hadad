@@ -32,7 +32,7 @@ public class JwtService  {
     private Claims extractclaims (String token){
         return Jwts.parserBuilder().setSigningKey(SECRET).build().parseClaimsJws(token).getBody();
     }
-    private String emailToken (String token){
+    public String emailToken (String token){
         return extractclaims(token).getSubject();
     }
 }

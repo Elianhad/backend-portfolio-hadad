@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     AuthService authService;
     @PostMapping(value= "/sign-up")
-    public ResponseEntity<String> createAccount(@RequestBody UserPorfolio userPorfolio){
+    public ResponseEntity<?> createAccount(@RequestBody UserPorfolio userPorfolio){
         return authService.createNewUser(userPorfolio);
     }
     @PostMapping(value = "/login")

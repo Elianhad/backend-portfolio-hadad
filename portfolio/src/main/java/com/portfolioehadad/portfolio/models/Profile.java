@@ -1,21 +1,22 @@
 package com.portfolioehadad.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "profiles")
+@Table(name = "profile")
 @Getter @Setter
 public class Profile {
-     @Id
-     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long id;
-     @OneToOne
-     @JoinColumn(name = "user_id")
-     private UserPorfolio user;
+    @Id
+    private Long id;
     private String name;
     private String image;
     private String profession;
 
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private UserPorfolio user;
 }
