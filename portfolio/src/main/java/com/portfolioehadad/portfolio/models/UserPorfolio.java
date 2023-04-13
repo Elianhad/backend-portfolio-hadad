@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.print.PrinterJob;
+import java.util.List;
+
 
 @Entity
 @Table(name = "users")
@@ -20,4 +23,12 @@ public class UserPorfolio {
     @JsonManagedReference
     private Profile profile;
 
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Education> educations;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private  List<Project> projects;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private  List<Skill> skills;
 }
