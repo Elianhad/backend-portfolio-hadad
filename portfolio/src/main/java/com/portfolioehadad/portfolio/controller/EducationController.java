@@ -12,14 +12,17 @@ public class EducationController {
     @Autowired
     EducationService educationService;
     @PostMapping(value = "/educations/create")
+    @ResponseBody
     public ResponseEntity<?> createEducation(HttpServletRequest req, @RequestBody Education education) throws Exception {
         return educationService.createEducation(req, education);
     }
     @GetMapping(value = "/educations")
+    @ResponseBody
     public  ResponseEntity<?> getAllEdu(HttpServletRequest req) throws Exception {
         return educationService.getAllEducations(req);
     }
     @PutMapping(value = "educations/edit/{id}")
+    @ResponseBody
     public ResponseEntity<?> editEducation(HttpServletRequest req, @PathVariable Long id, @RequestBody Education education) throws Exception {
         return educationService.putOneEducation(req, id, education);
     }
