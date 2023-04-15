@@ -26,5 +26,9 @@ public class EducationController {
     public ResponseEntity<?> editEducation(HttpServletRequest req, @PathVariable Long id, @RequestBody Education education) throws Exception {
         return educationService.putOneEducation(req, id, education);
     }
+    @DeleteMapping(value = "educations/del/{id}")
+    public ResponseEntity<?> delEducation(HttpServletRequest req, @PathVariable Long id ) throws Exception {
+        return educationService.deleteEducation(req, id);
+    }
 }
 

@@ -72,6 +72,21 @@ public class EducationService {
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    public ResponseEntity<?> deleteEducation(HttpServletRequest req, Long id) throws Exception {
+        try{
+            UserPorfolio user = authService.authChecker(req);
+            if (user == null){
+                throw new Exception("Hubo un error de autenticación");
+            }
+            Education educationToDel = educationRepository.findById(id).orElseThrow();
+            if(educationToDel.getUser() != user){
+                throw new Exception("No tiene permiso para editar");
+            }
+           educationRepository.deleteById(id);
+            return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

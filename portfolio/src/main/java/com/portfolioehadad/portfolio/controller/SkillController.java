@@ -27,4 +27,8 @@ public class SkillController {
     public ResponseEntity<?> editSkills(HttpServletRequest req, @PathVariable Long id, @RequestBody Skill skill) throws Exception {
         return skillService.putOneSkill(req, id, skill);
     }
+    @DeleteMapping(value = "skills/del/{id}")
+    public ResponseEntity<?> delSkills(HttpServletRequest req, @PathVariable Long id) throws Exception {
+        return skillService.delSkill(req, id);
+    }
 }

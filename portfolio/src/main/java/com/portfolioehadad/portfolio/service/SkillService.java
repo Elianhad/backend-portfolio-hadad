@@ -73,4 +73,22 @@ public class SkillService {
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    public ResponseEntity<?> delSkill(HttpServletRequest req, Long id) throws Exception {
+        try{
+            UserPorfolio user = authService.authChecker(req);
+            if (user == null){
+                throw new Exception("Hubo un error de autenticación");
+            }
+            Skill skillToDel = skillRepository.findById(id).orElseThrow();
+            System.out.print(skillToDel.getUser());
+            if(skillToDel.getUser() != user){
+                throw new Exception("No tiene permiso para editar");
+            }
+
+            skillRepository.deleteById(id);
+            return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
