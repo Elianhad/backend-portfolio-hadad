@@ -24,11 +24,14 @@ public class UserPorfolio {
     private Profile profile;
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Education> educations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private  List<Project> projects;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private  List<Skill> skills;
 }
