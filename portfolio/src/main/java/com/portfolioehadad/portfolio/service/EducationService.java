@@ -29,7 +29,6 @@ public class EducationService {
             newEducation.setName(education.getName());
             newEducation.setCampus(education.getCampus());
             newEducation.setDate(education.getDate());
-            System.out.println(newEducation);
             try{
                 educationRepository.save(newEducation);
             } catch (Exception e){
@@ -42,11 +41,8 @@ public class EducationService {
     }
     public ResponseEntity<?> getAllEducations(HttpServletRequest req) throws Exception {
         try{
-            UserPorfolio user = authService.authChecker(req);
-            if (user == null){
-                throw new Exception("Hubo un error de autenticación");
-            }
-            List<Education> educationList = user.getEducations();
+            List<Education> educationList  = educationRepository.findAll();
+
             return new ResponseEntity<>(educationList, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -82,7 +78,11 @@ public class EducationService {
             if(educationToDel.getUser() != user){
                 throw new Exception("No tiene permiso para editar");
             }
-           educationRepository.deleteById(id);
+            try {
+               educationRepository.deleteById(id);
+            } catch (Exception e){
+                throw new Exception("No se pudo eliminar");
+            }
             return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);

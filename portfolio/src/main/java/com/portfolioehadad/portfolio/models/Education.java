@@ -22,7 +22,7 @@ public class Education {
     private Long id;
     private String name;
     private String campus;
-    private LocalDate date;
+    private String date;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private UserPorfolio user;

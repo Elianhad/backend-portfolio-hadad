@@ -15,10 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public class AuthService {
+    UserPorfolio userloggin;
     @Autowired
     ProfileRepository profileRepository;
     @Autowired
@@ -30,18 +29,20 @@ public class AuthService {
     PasswordEncoderCustom passwordEncoded;
     @Autowired
     CheckJwtHeader checkJwtHeader;
-    private JsonParser parser = new JsonParser();
     // LOGIN
 
 
     public ResponseEntity<?> login(UserPorfolio userPorfolio) throws Exception {
         try {
-            Optional<UserPorfolio> userLogin = authRepository.findOneByEmail(userPorfolio.getEmail());
-            if(userLogin.isEmpty()){
-                throw new Exception("La cuenta no existe");
+            try{
+            this.userloggin = authRepository.findOneByEmail(userPorfolio.getEmail()).orElseThrow();
+            } catch (Exception e){
+                throw new Exception("No hay usuarios registrados");
             }
-            String passLogin = userLogin.get().getPassword();
-            if(passwordEncoded.decode(userPorfolio.getPassword(), passLogin)){
+            System.out.print(userPorfolio.getPassword());
+
+            String passLogin = this.userloggin.getPassword();
+            if(!passwordEncoded.decode(userPorfolio.getPassword(), passLogin)){
                 throw new Exception("La contraseña no coincide");
             }
         } catch ( Exception e ){

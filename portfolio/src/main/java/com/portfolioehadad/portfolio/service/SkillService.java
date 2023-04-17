@@ -43,11 +43,7 @@ public class SkillService {
     }
     public ResponseEntity<?> getAllSkills(HttpServletRequest req) throws Exception {
         try{
-            UserPorfolio user = authService.authChecker(req);
-            if (user == null){
-                throw new Exception("Hubo un error de autenticación");
-            }
-            List<Skill> skillListList = user.getSkills();
+            List<Skill> skillListList = skillRepository.findAll();
             return new ResponseEntity<>(skillListList, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
