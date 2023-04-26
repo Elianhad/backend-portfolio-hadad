@@ -38,7 +38,7 @@ public class SkillService {
             }
             return new ResponseEntity<>(newSkill, HttpStatus.CREATED);
         } catch (Exception e){
-            return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.BAD_REQUEST);
         }
     }
     public ResponseEntity<?> getAllSkills(HttpServletRequest req) {
