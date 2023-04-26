@@ -4,12 +4,9 @@ import com.portfolioehadad.portfolio.models.Education;
 import com.portfolioehadad.portfolio.service.EducationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @RestController
 @CrossOrigin

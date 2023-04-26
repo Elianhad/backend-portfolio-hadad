@@ -14,6 +14,7 @@ public class Profile {
     private String name;
     private String image;
     private String profession;
+    private String about;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)

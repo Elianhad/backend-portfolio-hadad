@@ -1,6 +1,5 @@
 package com.portfolioehadad.portfolio.service;
 
-import com.portfolioehadad.portfolio.models.Education;
 import com.portfolioehadad.portfolio.models.Skill;
 import com.portfolioehadad.portfolio.models.UserPorfolio;
 import com.portfolioehadad.portfolio.repository.SkillRepository;
@@ -19,11 +18,11 @@ public class SkillService {
     @Autowired
     SkillRepository skillRepository;
 
-    public ResponseEntity<?> createSkill(HttpServletRequest req, Skill skill) throws Exception {
+    public ResponseEntity<?> createSkill(HttpServletRequest req, Skill skill) {
         try{
             UserPorfolio user = authService.authChecker(req);
             if (user == null){
-                throw new Exception("Hubo un error de autenticación");
+                return new ResponseEntity<>("Hubo un error de autenticación", HttpStatus.BAD_REQUEST);
             }
             Skill newSkill = new Skill();
             newSkill.setUser(user);
@@ -34,31 +33,31 @@ public class SkillService {
             try{
                 skillRepository.save(newSkill);
             } catch (Exception e){
+                System.out.println(e.getMessage());
                 return new ResponseEntity<>("Hubo un error en la creación del registro", HttpStatus.INTERNAL_SERVER_ERROR);
             }
             return new ResponseEntity<>(newSkill, HttpStatus.CREATED);
         } catch (Exception e){
-            return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.BAD_REQUEST);
         }
     }
-    public ResponseEntity<?> getAllSkills(HttpServletRequest req) throws Exception {
+    public ResponseEntity<?> getAllSkills(HttpServletRequest req) {
         try{
             List<Skill> skillListList = skillRepository.findAll();
             return new ResponseEntity<>(skillListList, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.BAD_GATEWAY);
         }
     }
     public ResponseEntity<?> putOneSkill(HttpServletRequest req, Long id, Skill skill) throws Exception {
         try{
             UserPorfolio user = authService.authChecker(req);
             if (user == null){
-                throw new Exception("Hubo un error de autenticación");
+                return new ResponseEntity<>("Hubo un error de autenticación", HttpStatus.BAD_REQUEST);
             }
             Skill skillToEdit = skillRepository.findById(id).orElseThrow();
-            System.out.print(skillToEdit.getUser());
             if(skillToEdit.getUser() != user){
-                throw new Exception("No tiene permiso para editar");
+                return new ResponseEntity<>("No tiene permisos para editar", HttpStatus.BAD_REQUEST);
             }
             skillToEdit.setNameSkill(skill.getNameSkill());
             skillToEdit.setPercentageSkill(skill.getPercentageSkill());
@@ -66,25 +65,31 @@ public class SkillService {
             skillRepository.save(skillToEdit);
             return new ResponseEntity<>( skillToEdit, HttpStatus.CREATED);
         } catch (Exception e){
-            return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.BAD_REQUEST);
         }
     }
-    public ResponseEntity<?> delSkill(HttpServletRequest req, Long id) throws Exception {
+    public ResponseEntity<?> delSkill(HttpServletRequest req, Long id) {
+        //**
+        // Validación de recursos
+        // */
         try{
             UserPorfolio user = authService.authChecker(req);
             if (user == null){
-                throw new Exception("Hubo un error de autenticación");
+                return new ResponseEntity<>("Hubo un error de autenticación", HttpStatus.BAD_REQUEST);
             }
             Skill skillToDel = skillRepository.findById(id).orElseThrow();
-            System.out.print(skillToDel.getUser());
             if(skillToDel.getUser() != user){
-                throw new Exception("No tiene permiso para editar");
+                return new ResponseEntity<>("No tiene permisos para editar", HttpStatus.BAD_REQUEST);
             }
-
-            skillRepository.deleteById(id);
-            return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        try{
+            skillRepository.deleteById(id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("Hubo un error en servidor", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
     }
 }

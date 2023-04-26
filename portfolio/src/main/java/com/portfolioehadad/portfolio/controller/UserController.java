@@ -25,7 +25,7 @@ public class UserController {
         return authService.login(user);
     }
     @GetMapping(value = "/user")
-    public ResponseEntity<?> getUser(HttpServletRequest req) throws Exception {
-        return userService.getUserAndProfile(req);
+    public ResponseEntity<?> getUser() throws Exception {
+        return userService.getUserAndProfile();
     }
 }

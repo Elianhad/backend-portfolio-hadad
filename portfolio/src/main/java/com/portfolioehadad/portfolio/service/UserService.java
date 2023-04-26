@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserService  {
@@ -16,16 +18,12 @@ public class UserService  {
     UserRepository userRepository;
     @Autowired
     AuthService authService;
-    public ResponseEntity<?> getUserAndProfile(HttpServletRequest req) throws Exception{
+    public ResponseEntity<?> getUserAndProfile(){
         try{
-            UserPorfolio user = authService.authChecker(req);
-            if (user == null){
-                return ResponseEntity.badRequest().body("No puede acceder a la información");
-            }
-            Profile profile = user.getProfile();
-            return new ResponseEntity<>(profile, HttpStatus.OK);
+            List<UserPorfolio> users = userRepository.findAll();
+            return new ResponseEntity<>(users, HttpStatus.OK);
         }catch (Exception e){
-            throw new Exception(e.getMessage());
+            return new ResponseEntity<>("Hubo un error", HttpStatus.BAD_GATEWAY);
         }
     }
 }
