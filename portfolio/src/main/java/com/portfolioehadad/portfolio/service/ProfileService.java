@@ -19,7 +19,7 @@ public class ProfileService {
     @Autowired
     JwtService jwtService;
 
-    public ResponseEntity<?> editProfile(HttpServletRequest req, Profile profile, Long id) throws HttpStatusCodeException {
+    public ResponseEntity<?> editProfile(HttpServletRequest req, Profile profile, Long id) {
         try {
             UserPorfolio user = authService.authChecker(req);
             if (user == null){
