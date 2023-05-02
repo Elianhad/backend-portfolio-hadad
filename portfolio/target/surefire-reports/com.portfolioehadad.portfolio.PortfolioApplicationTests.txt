@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.portfolioehadad.portfolio.PortfolioApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.846 s - in com.portfolioehadad.portfolio.PortfolioApplicationTests
