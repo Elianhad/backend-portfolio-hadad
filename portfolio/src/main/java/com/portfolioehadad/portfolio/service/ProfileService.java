@@ -29,6 +29,7 @@ public class ProfileService {
             profile1.setName(profile.getName());
             profile1.setProfession(profile.getProfession());
             profile1.setImage(profile.getImage());
+            profile1.setAbout(profile.getAbout());
             repository.save(profile1);
             return new ResponseEntity<>(profile1, HttpStatus.CREATED);
         } catch (Exception e){
