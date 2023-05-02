@@ -20,11 +20,11 @@ public class ExperienceController {
     public ResponseEntity<?> getExperiences(HttpServletRequest req){
         return experienceService.getAllExperiences(req);
     }
-    @PutMapping(value = "/experiencia/editar/{id]")
+    @PutMapping(value = "/experiencia/editar/{id}")
     public ResponseEntity<?> putOneExperiencie(HttpServletRequest req, @RequestBody Experience experience, @PathVariable Long id){
         return experienceService.putOneExperience(req, id, experience);
     }
-    @DeleteMapping(value = "/experiencia/del/{id]")
+    @DeleteMapping(value = "/experiencia/del/{id}")
     public ResponseEntity<?> deleteOneExperience(HttpServletRequest req, Long id){
         return experienceService.deleteExperience(req, id);
     }
