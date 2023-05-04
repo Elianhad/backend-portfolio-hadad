@@ -1,6 +1,5 @@
 package com.portfolioehadad.portfolio.service;
 
-import com.mysql.cj.xdevapi.JsonParser;
 import com.portfolioehadad.portfolio.models.JwtModel;
 import com.portfolioehadad.portfolio.models.Profile;
 import com.portfolioehadad.portfolio.models.UserPorfolio;
