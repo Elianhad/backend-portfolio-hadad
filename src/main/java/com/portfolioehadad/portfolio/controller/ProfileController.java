@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileController {
     @Autowired
     ProfileService profileService;
-    // TODO: get profile desde userController
+
     @PutMapping("/profile/editar/{id}")
     public ResponseEntity<?> create(HttpServletRequest req, @RequestBody Profile profile, @PathVariable Long id){
         return profileService.editProfile(req, profile, id);
