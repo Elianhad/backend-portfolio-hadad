@@ -69,12 +69,8 @@ public class ExperienceService {
     public ResponseEntity<?> deleteExperience(HttpServletRequest req, Long id) {
         try{
             UserPorfolio user = authService.authChecker(req);
-            if (user == null){
+            if (user == null) {
                 return new ResponseEntity<>("Hubo un error de autenticación", HttpStatus.BAD_REQUEST);
-            }
-            Experience experienceToDel = experienceRepository.findById(id).orElseThrow();
-            if(experienceToDel.getUser() != user){
-                return new ResponseEntity<>("No tiene permiso para editar", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e){
             return new ResponseEntity<>( "Hubo un error en el servidor", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -82,7 +78,7 @@ public class ExperienceService {
         try {
             experienceRepository.deleteById(id);
         } catch (Exception e){
-            return new ResponseEntity<>("No se pudo eliminar", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>( "Ha sido eliminado correctamente", HttpStatus.OK);
     }

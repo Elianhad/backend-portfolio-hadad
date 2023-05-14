@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 
 @Service
 public class ProfileService {
@@ -30,6 +29,7 @@ public class ProfileService {
             profile1.setProfession(profile.getProfession());
             profile1.setImage(profile.getImage());
             profile1.setAbout(profile.getAbout());
+            System.out.print(profile.getAbout());
             repository.save(profile1);
             return new ResponseEntity<>(profile1, HttpStatus.CREATED);
         } catch (Exception e){

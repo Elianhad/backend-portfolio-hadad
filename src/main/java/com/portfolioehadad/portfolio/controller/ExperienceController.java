@@ -25,7 +25,7 @@ public class ExperienceController {
         return experienceService.putOneExperience(req, id, experience);
     }
     @DeleteMapping(value = "/experiencia/del/{id}")
-    public ResponseEntity<?> deleteOneExperience(HttpServletRequest req, Long id){
+    public ResponseEntity<?> deleteOneExperience(HttpServletRequest req, @PathVariable Long id){
         return experienceService.deleteExperience(req, id);
     }
 }
